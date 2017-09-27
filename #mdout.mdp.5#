@@ -2,7 +2,7 @@
 ;	File 'mdout.mdp' was generated
 ;	By user: Moselhy (-1)
 ;	On host: LAPTOP-RS9GADGE
-;	At date: Wed Sep 27 13:09:19 2017
+;	At date: Wed Sep 27 12:41:41 2017
 
 ;
 ;	Created by:
@@ -12,21 +12,21 @@
 ;	Data prefix:  C:\D\GromacsCuda (source tree)
 ;	Working dir:  C:\Users\Moselhy\Bash\md
 ;	Command line:
-;	  gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md_0_1.tpr
+;	  gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -p topol.top -o npt.tpr
 
 ; VARIOUS PREPROCESSING OPTIONS
 ; Preprocessor information: use cpp syntax.
 ; e.g.: -I/home/joe/doe -I/home/mary/roe
 include                  = 
 ; e.g.: -DPOSRES -DFLEXIBLE (note these variable names are case sensitive)
-define                   = 
+define                   = -DPOSRES
 
 ; RUN CONTROL PARAMETERS
 integrator               = md
 ; Start time and timestep in ps
 tinit                    = 0
 dt                       = 0.002
-nsteps                   = 500000
+nsteps                   = 50000
 ; For exact run continuation or redoing part of a run
 init-step                = 0
 ; Part index is updated automatically on checkpointing (keeps files separate)
@@ -60,20 +60,20 @@ rtpi                     = 0.05
 
 ; OUTPUT CONTROL OPTIONS
 ; Output frequency for coords (x), velocities (v) and forces (f)
-nstxout                  = 5000
-nstvout                  = 5000
+nstxout                  = 500
+nstvout                  = 500
 nstfout                  = 0
 ; Output frequency for energies to log file and energy file
-nstlog                   = 5000
+nstlog                   = 500
 nstcalcenergy            = 100
-nstenergy                = 5000
+nstenergy                = 500
 ; Output frequency and precision for .xtc file
-nstxout-compressed       = 5000
+nstxout-compressed       = 0
 compressed-x-precision   = 1000
 ; This selects the subset of atoms for the compressed
 ; trajectory file. You can select multiple groups. By
 ; default, all atoms will be written.
-compressed-x-grps        = System
+compressed-x-grps        = 
 ; Selection of energy groups
 energygrps               = 
 
@@ -174,7 +174,7 @@ tau_p                    = 2.0
 compressibility          = 4.5e-5
 ref_p                    = 1.0
 ; Scaling of reference coordinates, No, All or COM
-refcoord-scaling         = No
+refcoord_scaling         = com
 
 ; OPTIONS FOR QMMM calculations
 QMMM                     = no
