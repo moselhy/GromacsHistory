@@ -4386,5 +4386,7 @@ Protein in water
 [ molecules ]
 ; Compound        #mols
 Protein             1
-SOL         38983
+SOL         38767
+NA               108
+CL               108
 NA               4
