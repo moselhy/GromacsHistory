@@ -2,7 +2,7 @@
 ;	File 'mdout.mdp' was generated
 ;	By user: Moselhy (-1)
 ;	On host: LAPTOP-RS9GADGE
-;	At date: Mon Oct  2 11:51:25 2017
+;	At date: Mon Oct  2 11:51:56 2017
 
 ;
 ;	Created by:
@@ -12,7 +12,7 @@
 ;	Data prefix:  C:\D\GromacsCuda (source tree)
 ;	Working dir:  C:\Users\Moselhy\Bash\biggerbox-oct2
 ;	Command line:
-;	  gmx grompp -f ions.mdp -c etge_solv_ions.gro -p topol.top -o ions_afterneutr.tpr
+;	  gmx grompp -f minim.mdp -c etge_solv_ions_afterneutr.gro -p topol.top -o em.tpr
 
 ; VARIOUS PREPROCESSING OPTIONS
 ; Preprocessor information: use cpp syntax.
@@ -26,7 +26,7 @@ integrator               = steep
 ; Start time and timestep in ps
 tinit                    = 0
 dt                       = 0.001
-nsteps                   = 50000
+nsteps                   = 5000
 ; For exact run continuation or redoing part of a run
 init-step                = 0
 ; Part index is updated automatically on checkpointing (keeps files separate)
@@ -81,9 +81,9 @@ energygrps               =
 ; cut-off scheme (Verlet: particle based cut-offs, group: using charge groups)
 cutoff-scheme            = Verlet
 ; nblist update frequency
-nstlist                  = 1
+nstlist                  = 10
 ; ns algorithm (simple or grid)
-ns_type                  = grid
+ns-type                  = Grid
 ; Periodic boundary conditions: xyz, no, xy
 pbc                      = xyz
 periodic-molecules       = no
@@ -91,24 +91,24 @@ periodic-molecules       = no
 ; a value of -1 means: use rlist
 verlet-buffer-tolerance  = 0.005
 ; nblist cut-off        
-rlist                    = 1
+rlist                    = 1.2
 ; long-range cut-off for switched potentials
 
 ; OPTIONS FOR ELECTROSTATICS AND VDW
 ; Method for doing electrostatics
-coulombtype              = PME
+coulombtype              = pme
 coulomb-modifier         = Potential-shift-Verlet
 rcoulomb-switch          = 0
-rcoulomb                 = 1.0
+rcoulomb                 = 1.2
 ; Relative dielectric constant for the medium and the reaction field
 epsilon-r                = 1
 epsilon-rf               = 0
 ; Method for doing Van der Waals
-vdw-type                 = Cut-off
-vdw-modifier             = Potential-shift-Verlet
+vdwtype                  = Cut-off
+vdw-modifier             = Force-switch
 ; cut-off lengths       
-rvdw-switch              = 0
-rvdw                     = 1.0
+rvdw_switch              = 1.0
+rvdw                     = 1.2
 ; Apply long range dispersion corrections for Energy and Pressure
 DispCorr                 = No
 ; Extension of the potential lookup tables beyond the cut-off
@@ -220,9 +220,9 @@ gen-temp                 = 300
 gen-seed                 = -1
 
 ; OPTIONS FOR BONDS    
-constraints              = none
+constraints              = h-bonds
 ; Type of constraint algorithm
-constraint-algorithm     = Lincs
+constraint_algorithm     = LINCS
 ; Do not constrain the start configuration
 continuation             = no
 ; Use successive overrelaxation to reduce the number of shake iterations
